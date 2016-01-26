@@ -1,0 +1,10 @@
+{{!-- {{DROPZONE Template: pass the dropzone row and dropzoneIndex {dropZoneRow: rowNum, dropZoneIndex: indexNum}  }} --}}
+
+
+<%-- ROW : # {{{this.dropZoneRow}}} --%>
+<PB:dropzone id="DropZone{{{this.dropZoneIndex}}}Row{{{this.dropZoneRow}}}" runat="server" allowaddcolumn="false" allowcolumnresize="false">
+    <ColumnDefinitions>
+        <PB:ColumnData columnID="0" width="100" unit="percent" />
+    </ColumnDefinitions>
+</PB:dropzone>
+

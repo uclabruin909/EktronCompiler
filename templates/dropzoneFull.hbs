@@ -1,0 +1,12 @@
+{{!-- {{DROPZONEFULL Template (for FULL layout): nothing needs to be passed.  standard throughout }} --}}
+
+
+
+<%-- ROW 1: # FULL LAYOUT  --%>
+<PB:dropzone id="DropZone1Row1" runat="server" allowaddcolumn="false" allowcolumnresize="false">
+    <ColumnDefinitions>
+        <PB:ColumnData columnID="0" width="100" unit="percent" />
+    </ColumnDefinitions>
+</PB:dropzone>
+<cms:contentblock id="ContentBlock1" runat="server" dynamicparameter="id" suppresswrappertags="true" visible="true" />
+<cms:formblock id="FormBlock1" runat="server" dynamicparameter="ekfrm" suppresswrappertags="true" visible="true" />

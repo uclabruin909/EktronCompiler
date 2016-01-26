@@ -1,0 +1,23 @@
+{{!-- {{FOOTER Section Template: pass in obj {html : compiledHeaderHTML}.  Will be appened inside brackets.--}}
+
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="~/UserControls/Smarsh_Footer.ascx.cs" Inherits="UserControls_Smarsh_Footer" Debug="true" %>
+<%@ Register Assembly="Ektron.Cms.Controls" Namespace="Ektron.Cms.Controls" TagPrefix="CMS" %>
+<%@ Register Src="../../../../../UserControls/Smarsh_CustomLogo.ascx" TagName="Smarsh_CustomLogo" TagPrefix="Logo" %>
+
+<!-- Site Theme - Smarsh_Footer loaded -->
+
+<asp:MultiView ID="Footer" runat="server" ActiveViewIndex="0">
+    <asp:View ID="Footer_1" runat="server">
+
+
+        {{{this.html}}}
+
+
+
+        <!-- JavaScript
+        ================================================================================================= -->
+
+        <script src="/Smarsh_Site_Config.js"></script>
+
+    </asp:View>
+</asp:MultiView>

@@ -1,0 +1,49 @@
+{{!-- {{HEAD Section Template: pass in obj {html : compiledHeadHTML}.  Will be appened--}}
+
+
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="~/UserControls/Smarsh_Head.ascx.cs" Inherits="UserControls_Smarsh_Head" Debug="true" %>
+
+<!-- Site Theme - Smarsh_Head loaded -->
+
+    <!-- Meta Data
+    ================================================== -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href='<%= favicon() %>'>
+
+
+        {{{this.html}}}
+
+
+
+    <!-- IE Conditionals
+    ================================================== -->
+    <!--[if lt IE 9]>
+            <script src="/Templates/Common/js/html5shiv.min.js"></script>
+            <script src="/Templates/Common/js/respond-1.4.2.min.js"></script>
+    <![endif]-->
+
+    <!-- JS - jQuery
+    ================================================== -->
+    <%--
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        jQuery is required in the header, all other scripts are loaded in the Smarsh_Footer.ascx File.
+        jQuery is auto-loaded by Ektron. Only load if jQuery is not found via line below.
+    --%>
+    <script>window.jQuery || document.write('<script src="/Templates/Common/js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <script id="Script1" type="text/javascript">
+        jQuery(function($) {
+            $.expr[':'].external = function(obj) {
+                return obj.protocol.match(/^http/)
+                && obj.hostname != location.hostname
+                && !obj.rel.match(/shadowbox/);
+            };
+            $('a:external').click(function() {
+                if(confirm('<%= externalLinkDisclaimer() %>'))
+                    window.open(this.href,'<%= externalLinkDisclaimerOpen() %>');
+                    return false;
+                });
+       });
+    </script>
