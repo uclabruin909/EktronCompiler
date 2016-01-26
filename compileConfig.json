@@ -1,0 +1,26 @@
+{
+
+  "companyName" : "Test Company",
+  "projectName" : "ST_www_testcomp_com_01",
+  "projectDate" : "02-01-2016",
+  "rootDir" : "./",
+  "initDirectories" : ["Layouts", "UserControls", "xslt", "Content"],
+  "project" : {
+    "UserControls" : {
+      "files" : [{"name": "Smarsh_Head", "fileType": ".ascx", "srcFile": "./index.html"}, {"name": "Smarsh_Header", "fileType": ".ascx", "srcFile": "./index.html"}, {"name": "Smarsh_Footer", "fileType": ".ascx", "srcFile": "./index.html"}]
+    },
+    "Layouts" : {
+      "files" : [
+        {"name": "Hero-01", "fileType": ".aspx", "srcFile": "./index.html"},
+        {"name": "Full", "fileType": ".aspx", "srcFile": "./index.html"},
+        {"name": "100-100-100", "fileType": ".aspx", "srcFile": "./index.html"}]
+    },
+    "xslt" : {
+      "files" : ["main_menu.xsl", "single_level_menu.xsl"]
+    }
+  },
+  "compileFiles" : ["./index.html", "./index2.html"]
+
+}
+
+
