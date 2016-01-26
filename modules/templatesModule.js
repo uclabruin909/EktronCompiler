@@ -1,7 +1,7 @@
 //template module.  will have render methods for each of the different template types.
 //render methods will be returned.
-//Dependencies: Handlebar
-
+//Dependencies: Handlebar fs
+var fs = require('fs');
 var Handlebars = require('handlebars');
 
 

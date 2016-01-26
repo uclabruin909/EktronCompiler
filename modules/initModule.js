@@ -1,6 +1,7 @@
 //Ektron Module : reponsibile for initialization of folders, ucFiles, etc
-//Dependencies:  helper module, template module
+//Dependencies:  helper module, template module, fs
 
+var fs = require('fs');
 var helper = require('./helper.js');
 var templatesModule = require('./templatesModule.js');
 
