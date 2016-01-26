@@ -2,4 +2,4 @@
 {{!-- {{TOPNAV Template: Pass in object {projectName: projectName} project name to apply project name to it to xslt directory}} --}}
 
 <%-- HEADER MAIN NAV --%>
-<CMS:FlexMenu ID="TopNav_1" EnableSmartOpen="False" runat="server" DisplayXslt="/Templates/Smarsh/Master/S{{{this.projectName}}}/xslt/main_menu.xsl" CacheInterval="0" AllowEdit="true" SuppressWrapperTags="true" />
+<CMS:FlexMenu ID="TopNav_1" EnableSmartOpen="False" runat="server" DisplayXslt="/Templates/Smarsh/Master/{{{this.projectName}}}/xslt/main_menu.xsl" CacheInterval="0" AllowEdit="true" SuppressWrapperTags="true" />
