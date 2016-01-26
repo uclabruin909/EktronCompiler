@@ -36,54 +36,102 @@ var compileMethods = {
 
 //function compile dropzone row wraps
 //eg <div ek-dropzone="1" > =====> <div id="Row1" runat="server">
-function compileDropZone($el) {
-  var $dropZone = $el;
-  var dropZone_row = $dropZone.attr('ek-dropzone');
-  var $dropAreas = $dropZone.find(' [ek-droparea] ');
+  function compileDropZone($el) {
+    var $dropZone = $el;
+    var dropZone_row = $dropZone.attr('ek-dropzone');
+    var $dropAreas = $dropZone.find(' [ek-droparea] ');
 
-  if ( dropZone_row === 'full' ) {
 
-    $dropZone.attr({
-      "id" : "Row1",
-      "runat" : "server",
-    })
-    .removeAttr("ek-dropzone");
+    if ( dropZone_row === 'full' ) {
 
-    $dropAreas.each(function(index, el) {
+      //if no $dropAreas, compile full dropzone and make it the HTML of $dropZone
+      if ( $dropAreas.length < 1 ) {
+        createImmediateFullDropZone();
+      }
 
-      var $this = $(this);
-      // eg : div ek-droparea = "1";
-      var dropAreaIndex = $this.attr('ek-droparea');
-      var compiledDropArea= templatesModule.render('dropzoneFull');
-      $this.text('\t' + compiledDropArea);
+      $dropZone.attr({
+        "id" : "Row1",
+        "runat" : "server",
+      })
+      .removeAttr("ek-dropzone");
 
-    });
+      $dropAreas.each(function(index, el) {
+        var $this = $(this);
+        // eg : div ek-droparea = "1";
+        var dropAreaIndex = $this.attr('ek-droparea');
+        var compiledDropArea= templatesModule.render('dropzoneFull');
+        $this.text(compiledDropArea + '\n\n');
+      });
+    }
+    else {
 
-  }
+      //if no $dropAreas, compile full dropzone and make it the HTML of $dropZone
+      if ( $dropAreas.length < 1 ) {
+        createImmediateFullDropZone();
+      }
 
-  else {
 
-    $dropZone.attr({
-      "id" : "Row" + dropZone_row,
-      "runat" : "server",
-    })
-    .removeAttr("ek-dropzone");
+      $dropZone.attr({
+        "id" : "Row" + dropZone_row,
+        "runat" : "server",
+      })
+      .removeAttr("ek-dropzone");
 
-    $dropAreas.each(function(index, el) {
-      var $this = $(this);
-      // eg : div ek-droparea = "1";
-      var dropAreaIndex = $this.attr('ek-droparea');
-      var dropZone_template_obj = {
-        dropZoneRow: dropZone_row,
-        dropZoneIndex: dropAreaIndex,
+      $dropAreas.each(function(index, el) {
+        var $this = $(this);
+        // eg : div ek-droparea = "1";
+        var dropAreaIndex = $this.attr('ek-droparea');
+        var dropZone_template_obj = {
+          dropZoneRow: dropZone_row,
+          dropZoneIndex: dropAreaIndex,
+        };
+        var compiledDropArea= templatesModule.render('dropzone', dropZone_template_obj);
+        $this.text(compiledDropArea + '\n\n');
+      });
+    }
+
+
+    // function used to create FULL dropzone immediately after the wrap
+    function createImmediateFullDropZone() {
+      //assign proper attributes
+      $dropZone.attr({
+        "id" : "Row1",
+        "runat" : "server",
+      })
+      .removeAttr('ek-dropzone');
+
+      var template_obj = {
+        dropZoneRow: 1,
+        dropZoneIndex: 1,
       };
-      var compiledDropArea= templatesModule.render('dropzone', dropZone_template_obj);
-      $this.text(compiledDropArea);
-    });
+
+      var compiled_dropZone = templatesModule.render('dropzoneFull');
+      $dropZone.text(compiled_dropZone + '\n\n');
+      return;
+    }
+
+    // function used to create dropzone immediately after the wrap
+    function createImmediateDropZone() {
+      //assign proper attributes
+      $dropZone.attr({
+        "id" : "Row1",
+        "runat" : "server",
+      })
+      .removeAttr('ek-dropzone');
+
+      var template_obj = {
+        dropZoneRow: 1,
+        dropZoneIndex: 1,
+      };
+
+      var compiled_dropZone = templatesModule.render('dropzone', template_obj);
+      $dropZone.text(compiled_dropZone + '\n\n');
+      return;
+    }
 
   }
 
-}
+
 
 
 function compileContent($el) {
