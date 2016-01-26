@@ -12,6 +12,7 @@ var initMethods = {
   createInitDirectories : createInitDirectories,
   createUCfiles : createUCfiles,
   createDescriptionFile : createDescriptionFile,
+  createXSLFiles : createXSLFiles,
 };
 
 
@@ -75,6 +76,16 @@ function createDescriptionFile() {
 
   fs.writeFileSync(filePath, compiledContent);
 }
+
+function createXSLFiles() {
+  var compiled_main_menu = templatesModule.render('mainMenu-xsl');
+  var compiled_single_menu = templatesModule.render('singleMenu-xsl');
+  var basePath = helper.getPathOf('xslt');
+
+  fs.writeFileSync(basePath + '/main_menu.xsl', compiled_main_menu);
+  fs.writeFileSync(basePath + '/single_level_menu.xsl', compiled_single_menu);
+}
+
 
 
 module.exports = initMethods;
