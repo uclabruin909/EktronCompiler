@@ -26,7 +26,7 @@
       "files" : ["main_menu.xsl", "single_level_menu.xsl"]
     }
   },
-  "compileFiles" : ["./index.html", "./index2.html"]
+  "compileFiles" : ["./index.html", "./team.html"]
 
 }
 
