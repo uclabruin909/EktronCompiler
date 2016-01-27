@@ -1,4 +1,5 @@
 var fs = require('fs');
+var assetObj = require('../assetFile.json');
 var beautify = require('js-beautify').html;
 
 var helper = require('./helper.js');
@@ -21,19 +22,60 @@ var compileMethods = {
       globalheader1 : compileGlobalHeader1,
       globalheader1 : compileGlobalHeader2,
       topnav : compileTopNav,
-
     },
 
-    asset : {
-      link : compileAssetLink,
-      script : compileAssetScript,
+    source : {
+      link : compileSourceLink,
+      script : compileSourceScript,
     },
+
+    asset : compileAsset,
 
 };
 
 
 
 /*COMPILE METHODS START*/
+
+
+
+function compileAsset($el) {
+
+  var el_src = $el.attr('src');
+
+  var asset_key = $el.attr('ek-asset');
+
+
+
+  // retrieve asset id from assetObj
+  var asset_id = assetObj[asset_key];
+  //retreive asset type eg jpg, png, etc
+  var asset_type = getAssetType(el_src);
+
+  //create compiled src path//
+  var compiled_src_path = 'assets/' + asset_id + '.' + asset_type;
+
+  //assign compiled src path to the element
+  $el.attr('src', compiled_src_path);
+
+  //remove ek-asset attribute
+  $el.removeAttr('ek-asset');
+
+
+  function getAssetType(srcPath) {
+    //eg images/temp/file.jpg ---> file.jpg
+    var baseFileArray = srcPath.split('/');
+    //get last array element --> file.jpg
+    var baseFileName = baseFileArray[baseFileArray.length-1];
+    var assetType = baseFileName.split('.')[1];
+
+    return assetType;
+  }
+
+
+
+}
+
 
 
 //function compile dropzone row wraps
@@ -145,6 +187,7 @@ var compileMethods = {
 function compileContent($el) {
   var complete_HTML = extractCompleteHTML($el);
   var content_name = $el.attr('ek-name');
+
   //create content with the createContentFile function
   createContentFile(content_name, complete_HTML);
   $el.remove();
@@ -294,26 +337,26 @@ function compileTopNav($el, $cheerio) {
 
 
 //<link rel="stylesheet" href="/Templates/Smarsh/Master/ST_www_pyawaltman_com_01/path.css">
-function compileAssetLink($el) {
+function compileSourceLink($el) {
   var href = $el.attr('href');
   var projectName = helper.getProjectName();
   var base = '/Templates/Smarsh/Master/';
 
   var newBase = base + projectName + '/' + href;
   $el.attr('href', newBase);
-  $el.removeAttr('ek-asset');
+  $el.removeAttr('ek-source');
 
 }
 
   //<script src="/Templates/Smarsh/Master/ST_www_pyawaltman_com_01/dist/js/main.js">
-function compileAssetScript($el) {
+function compileSourceScript($el) {
   var src = $el.attr('src');
   var projectName = helper.getProjectName();
   var base = '/Templates/Smarsh/Master/';
 
   var newSrc = base + projectName + '/' + src;
   $el.attr('src', newSrc);
-  $el.removeAttr('ek-asset');
+  $el.removeAttr('ek-source');
 
 }
 
@@ -352,8 +395,14 @@ function extractCompleteHTML($el) {
     $extractWrap,
     complete_HTML; //extracted HTML that will be returned
 
+
     //clone the target element ($el)
     $clonedEl = $this.clone();
+    $clonedEl.removeAttr('ek-name');
+    $clonedEl.removeAttr('ek-type');
+
+
+    //remove ek-attributes
     $extractWrap = $this.append(' <div id="extractWrap"></div> ').find('#extractWrap');
     // append cloned el it to the $extractWrap and extract html
     $extractWrap.append($clonedEl);

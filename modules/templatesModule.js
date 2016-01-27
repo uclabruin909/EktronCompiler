@@ -17,7 +17,7 @@ var Handlebars = require('handlebars');
 
   //collection of all templates files inside the template folder
   // [contentblock.hbs, copyright.hbs, dropzone.hbs, etc]
-  var templateFiles = fs.readdirSync('../templates');
+  var templateFiles = fs.readdirSync('./templates');
 
   //loop through all files, extract source, compile and attach to the renderMethodsObj obk
   templateFiles.forEach(function(templateFile) {

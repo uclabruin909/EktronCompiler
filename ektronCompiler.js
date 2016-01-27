@@ -91,12 +91,19 @@ function compileHead() {
   var $ = cheerioParse( file_obj['srcFile'] );
 
   var $ek_assets = $('[ek-asset]');
+  var $ek_sources = $('[ek-source]');
 
-  //compile all assets//
+  //compile all ek-assets//
   $ek_assets.each(function(ind) {
     var $this = $(this);
-    var asset_type = $this.attr('ek-asset');
-    compilerModule.compile['asset'][asset_type]($this);
+    compilerModule.compile['asset']($this);
+  });
+
+  //compile all ek-source//
+  $ek_sources.each(function(ind) {
+    var $this = $(this);
+    var source_type = $this.attr('ek-source');
+    compilerModule.compile['source'][source_type]($this);
   });
 
   var $ek_head = $('head');
@@ -119,10 +126,18 @@ function compileHeader() {
   var dest_path = helper.getPathOf('UserControls') + '/' + file_obj['name'] + file_obj['fileType'];
   var $ = cheerioParse( file_obj['srcFile'] );
 
+  var $ek_assets = $('[ek-asset]');
   var $ek_types = $('[ek-type]');
   var $ek_dropzones = $('[ek-dropzone]');
 
-  //compile all assets//
+    //compile all ek-assets//
+  $ek_assets.each(function(ind) {
+    var $this = $(this);
+    compilerModule.compile['asset']($this);
+  });
+
+
+  //after all ek-assets have been compiled, compile all ek-types//
   $ek_types.each(function(ind) {
     var $this = $(this);
     var ektron_type = $this.attr('ek-type');
@@ -163,16 +178,23 @@ function compileFooter() {
   var $ = cheerioParse( file_obj['srcFile'] );
 
   var $ek_assets = $('[ek-asset]');
+  var $ek_sources = $('[ek-source]');
   var $ek_types = $('[ek-type]');
 
-  //compile all assets//
+    //compile all ek-assets//
   $ek_assets.each(function(ind) {
     var $this = $(this);
-    var asset_type = $this.attr('ek-asset');
-    compilerModule.compile['asset'][asset_type]($this);
+    compilerModule.compile['asset']($this);
   });
 
-  //compile all assets after all ek_assets have been compiled//
+  //compile all sources//
+  $ek_sources.each(function(ind) {
+    var $this = $(this);
+    var source_type = $this.attr('ek-source');
+    compilerModule.compile['source'][source_type]($this);
+  });
+
+  //compile all assets and sources and then compiled the ek-types//
   $ek_types.each(function(ind) {
     var $this = $(this);
     var ektron_type = $this.attr('ek-type');
@@ -205,10 +227,19 @@ function compileLayout(layoutName) {
   var dest_path = helper.getPathOf('Layouts') + '/' + file_obj['name'] + file_obj['fileType'];
   var $ = cheerioParse( file_obj['srcFile'] );
 
+   var $ek_assets = $('[ek-asset]');
   var $ek_types = $('[ek-type]');
   var $ek_dropzones = $('[ek-dropzone]');
 
-  //compile all assets//
+
+    //compile all ek-assets//
+  $ek_assets.each(function(ind) {
+    var $this = $(this);
+    compilerModule.compile['asset']($this);
+  });
+
+
+  //compile all ek-types//
   $ek_types.each(function(ind) {
     var $this = $(this);
     var ektron_type = $this.attr('ek-type');
