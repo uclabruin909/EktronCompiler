@@ -1,4 +1,6 @@
 var fs = require('fs');
+var beautify = require('js-beautify').html;
+
 var helper = require('./helper.js');
 var templatesModule = require('./templatesModule.js');
 
@@ -8,7 +10,7 @@ var compileMethods = {
 
     dropzone : compileDropZone,
     //for ek-type = * compile methods
-    types : {
+    type : {
       content : compileContent,
       contentblock : compileContentBlock,
       contenttitle : compileContentTitle,
@@ -22,7 +24,7 @@ var compileMethods = {
 
     },
 
-    assets : {
+    asset : {
       link : compileAssetLink,
       script : compileAssetScript,
     },
@@ -36,7 +38,8 @@ var compileMethods = {
 
 //function compile dropzone row wraps
 //eg <div ek-dropzone="1" > =====> <div id="Row1" runat="server">
-  function compileDropZone($el) {
+  function compileDropZone($el, $cheerio) {
+    var $ = $cheerio;
     var $dropZone = $el;
     var dropZone_row = $dropZone.attr('ek-dropzone');
     var $dropAreas = $dropZone.find(' [ek-droparea] ');
@@ -59,15 +62,17 @@ var compileMethods = {
         var $this = $(this);
         // eg : div ek-droparea = "1";
         var dropAreaIndex = $this.attr('ek-droparea');
+        //remove ek-droparea attribute
+        $this.removeAttr('ek-droparea');
         var compiledDropArea= templatesModule.render('dropzoneFull');
-        $this.text(compiledDropArea + '\n\n');
+        $this.text(compiledDropArea + '\n');
       });
     }
     else {
 
       //if no $dropAreas, compile full dropzone and make it the HTML of $dropZone
       if ( $dropAreas.length < 1 ) {
-        createImmediateFullDropZone();
+        createImmediateDropZone();
       }
 
 
@@ -81,12 +86,15 @@ var compileMethods = {
         var $this = $(this);
         // eg : div ek-droparea = "1";
         var dropAreaIndex = $this.attr('ek-droparea');
+        //remove ek-droparea attribute
+        $this.removeAttr('ek-droparea');
+
         var dropZone_template_obj = {
           dropZoneRow: dropZone_row,
           dropZoneIndex: dropAreaIndex,
         };
         var compiledDropArea= templatesModule.render('dropzone', dropZone_template_obj);
-        $this.text(compiledDropArea + '\n\n');
+        $this.text(compiledDropArea + '\n');
       });
     }
 
@@ -106,8 +114,8 @@ var compileMethods = {
       };
 
       var compiled_dropZone = templatesModule.render('dropzoneFull');
-      $dropZone.text(compiled_dropZone + '\n\n');
-      return;
+      $dropZone.text(compiled_dropZone + '\n');
+      return true;
     }
 
     // function used to create dropzone immediately after the wrap
@@ -120,13 +128,13 @@ var compileMethods = {
       .removeAttr('ek-dropzone');
 
       var template_obj = {
-        dropZoneRow: 1,
+        dropZoneRow: dropZone_row,
         dropZoneIndex: 1,
       };
 
       var compiled_dropZone = templatesModule.render('dropzone', template_obj);
-      $dropZone.text(compiled_dropZone + '\n\n');
-      return;
+      $dropZone.text(compiled_dropZone + '\n');
+      return false;
     }
 
   }
@@ -143,7 +151,9 @@ function compileContent($el) {
 }
 
 
-function compileContentBlock($el) {
+function compileContentBlock($el, $cheerio) {
+  var $ = $cheerio;
+
   var $content_block = $el;
   var content_block_name = $content_block.attr('ek-name');
   var $content_block_html = extractCompleteHTML($content_block);
@@ -154,15 +164,16 @@ function compileContentBlock($el) {
   //insert $ektron_wrap before the $content_block,
   //insert text value of compiled_content_block into the ektron wrap
   //remove original $content_block element
-  var $ektron_wrap = $('<ektron>').text(compiled_content_block + '\n\n');
+  var $ektron_wrap = $('<ektron>').text(compiled_content_block + '\n');
   $ektron_wrap.insertBefore($content_block);
   $content_block.remove();
 
 }
 
 
-function compileFormBlock($el) {
+function compileFormBlock($el, $cheerio) {
 
+  var $ = $cheerio;
   var $form_block = $el;
   var form_block_name = $form_block.attr('ek-name');
   var $form_block_html = extractCompleteHTML($form_block);
@@ -173,14 +184,15 @@ function compileFormBlock($el) {
   //insert $ektron_wrap before the $form_block,
   //insert text value of compiled_form_block into the ektron wrap
   //remove original $form_block element
-  var $ektron_wrap = $('<ektron>').text(compiled_form_block + '\n\n');
+  var $ektron_wrap = $('<ektron>').text(compiled_form_block + '\n');
   $ektron_wrap.insertBefore($form_block);
   $form_block.remove();
 
 }
 
 
-function compileGlobalFooter1($el) {
+function compileGlobalFooter1($el, $cheerio) {
+  var $ = $cheerio;
   var $global_footer_el = $el;
   var compiled_global_footer = templatesModule.render('globalfooter1');
   var $global_footer_html = extractCompleteHTML($global_footer_el);
@@ -189,13 +201,14 @@ function compileGlobalFooter1($el) {
     //insert $ektron_wrap before the $global_footer_el,
   //insert text value of compiled_global_footer into the ektron wrap
   //remove original $global_footer_el element
-  var $ektron_wrap = $('<ektron>').text(compiled_global_footer + '\n\n');
+  var $ektron_wrap = $('<ektron>').text(compiled_global_footer + '\n');
   $ektron_wrap.insertBefore($global_footer_el);
   $global_footer_el.remove();
 
 }
 
-function compileGlobalFooter2($el) {
+function compileGlobalFooter2($el, $cheerio) {
+  var $ = $cheerio;
   var $global_footer_el = $el;
   var compiled_global_footer = templatesModule.render('globalfooter2');
   var $global_footer_html = extractCompleteHTML($global_footer_el);
@@ -204,14 +217,14 @@ function compileGlobalFooter2($el) {
     //insert $ektron_wrap before the $global_footer_el,
   //insert text value of compiled_global_footer into the ektron wrap
   //remove original $global_footer_el element
-  var $ektron_wrap = $('<ektron>').text(compiled_global_footer + '\n\n');
+  var $ektron_wrap = $('<ektron>').text(compiled_global_footer + '\n');
   $ektron_wrap.insertBefore($global_footer_el);
   $global_footer_el.remove();
 
 }
 
 // add attributes {visible : "false", "id" : "SiteSmallLogo_1", "runat" : "server"}
-function compileHeaderLogo($el) {
+function compileHeaderLogo($el, $cheerio) {
 
   $el.attr({
     "visible" : "false",
@@ -222,8 +235,9 @@ function compileHeaderLogo($el) {
 }
 
 
-function compileGlobalHeader1($el) {
+function compileGlobalHeader1($el, $cheerio) {
 
+  var $ = $cheerio;
   var $global_header_el = $el;
   var compiled_global_header = templatesModule.render('globalheader1');
   var $global_header_html = extractCompleteHTML($global_header_el);
@@ -232,15 +246,16 @@ function compileGlobalHeader1($el) {
     //insert $ektron_wrap before the $global_header_el,
   //insert text value of compiled_global_header into the ektron wrap
   //remove original $global_header_el element
-  var $ektron_wrap = $('<ektron>').text(compiled_global_header + '\n\n');
+  var $ektron_wrap = $('<ektron>').text(compiled_global_header + '\n');
   $ektron_wrap.insertBefore($global_header_el);
   $global_header_el.remove();
 
 }
 
 
-function compileGlobalHeader2($el) {
+function compileGlobalHeader2($el, $cheerio) {
 
+  var $ = $cheerio;
   var $global_header_el = $el;
   var compiled_global_header = templatesModule.render('globalheader2');
   var $global_header_html = extractCompleteHTML($global_header_el);
@@ -249,15 +264,15 @@ function compileGlobalHeader2($el) {
     //insert $ektron_wrap before the $global_header_el,
   //insert text value of compiled_global_header into the ektron wrap
   //remove original $global_header_el element
-  var $ektron_wrap = $('<ektron>').text(compiled_global_header + '\n\n');
+  var $ektron_wrap = $('<ektron>').text(compiled_global_header + '\n');
   $ektron_wrap.insertBefore($global_header_el);
   $global_header_el.remove();
 
 }
 
 
-function compileTopNav($el) {
-
+function compileTopNav($el, $cheerio) {
+  var $ = $cheerio;
   var $top_nav_el = $el;
   // topnav template requires obj {projectName: projectName}
   var template_obj = {
@@ -271,7 +286,7 @@ function compileTopNav($el) {
     //insert $ektron_wrap before the $top_nav_el,
   //insert text value of compiled_top_nav into the ektron wrap
   //remove original $top_nav_el element
-  var $ektron_wrap = $('<ektron>').text(compiled_top_nav + '\n\n');
+  var $ektron_wrap = $('<ektron>').text(compiled_top_nav + '\n');
   $ektron_wrap.insertBefore($top_nav_el);
   $top_nav_el.remove();
 
@@ -310,7 +325,9 @@ function compileContentTitle($el) {
   $headerEl.attr({
     "id" : "ContentTitle",
     "runat" : "server",
-  });
+  })
+  .removeAttr('ek-type')
+  .text('');
 
 }
 
@@ -324,8 +341,7 @@ function createContentFile(contentName, contentHTML) {
   //retrieve Content Folder path
   var contentDirPath = helper.getPathOf('Content');
   var newContentPath = contentDirPath + '/' + contentName + '.html';
-
-  fs.writeFileSync(newContentPath, contentHTML);
+  fs.writeFileSync(newContentPath, beautify(contentHTML, { indent_size: 2 }) );
 }
 
 
@@ -348,4 +364,8 @@ function extractCompleteHTML($el) {
 
 
 }
+
+module.exports = {
+  compile : compileMethods,
+};
 
