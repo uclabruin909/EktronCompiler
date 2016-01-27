@@ -1,8 +1,8 @@
 {
 
-  "companyName" : "Test Company",
-  "projectName" : "ST_www_testcomp_com_01",
-  "projectDate" : "02-01-2016",
+  "companyName" : "Tompkins Financial Advisors",
+  "projectName" : "ST_www_tompkinsfinancial_com_01",
+  "projectDate" : "01-27-2016",
   "rootDir" : "./",
   "initDirectories" : ["Layouts", "UserControls", "xslt", "Content"],
   "project" : {
@@ -12,7 +12,7 @@
     "Layouts" : {
       "files" : [
         {"name": "Hero-01", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "Full", "fileType": ".aspx", "srcFile": "./index.html"},
+        {"name": "Full", "fileType": ".aspx", "srcFile": "./our-team.html"},
         {"name": "100-100-100", "fileType": ".aspx", "srcFile": "./index.html"},
         {"name": "25-25-25", "fileType": ".aspx", "srcFile": "./index.html"},
         {"name": "25-50-25", "fileType": ".aspx", "srcFile": "./index.html"},
