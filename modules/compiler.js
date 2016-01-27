@@ -22,6 +22,7 @@ var compileMethods = {
       globalheader1 : compileGlobalHeader1,
       globalheader1 : compileGlobalHeader2,
       topnav : compileTopNav,
+      disclaimer : compileDisclaimer,
     },
 
     source : {
@@ -372,6 +373,15 @@ function compileContentTitle($el) {
   .removeAttr('ek-type')
   .text('');
 
+}
+
+
+function compileDisclaimer($el) {
+
+  var compiled_disclaimer = templatesModule.render('disclaimer');
+  $el.text(compiled_disclaimer + '\n');
+  //remove ek-type attribute
+  $el.removeAttr('ek-type');
 }
 
 
