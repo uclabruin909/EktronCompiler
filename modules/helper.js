@@ -100,20 +100,20 @@ function getFileObj(fileName) {
   var fileObjCollection = userControlsFiles.concat(layoutsFiles);
 
   var fileObj;
+
   //search through file list and return object with name = fileName parameter
   for (var i=0; i<fileObjCollection.length; i++) {
     var file = fileObjCollection[i];
     if ( file['name'] === fileName ) {
       fileObj = file;
-      return fileObj;
-    }
-    else {
-      console.log('no such file exists');
-      return false;
     }
   }
 
+  return fileObj;
+
 }
+
+
 
 
 module.exports = helperMethods;

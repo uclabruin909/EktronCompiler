@@ -52,7 +52,7 @@ function createUCfiles() {
       fileName: file['name'],
       projectName: projectName,
     };
-    var compiledSrc = renderModule.render['ucFile'](bodyObj);
+    var compiledSrc = templatesModule.render('ucfile', bodyObj);
 
     //async writeFile to filePath with the compiled src.
     fs.writeFile(filePath, compiledSrc);
