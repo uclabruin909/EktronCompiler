@@ -14,21 +14,23 @@ var compilerModule = require('./modules/compiler.js');
 var userAction = process.argv[2];
 
 
+
 var ektronMethods = {
   init : initialize,
   remove : removeProject,
   compile : compileProject,
+  compileFiles : compileFiles,
 }
 
 
 
 function initialize() {
+  // execute all init methods in the initModule
+  for (var initMethods in initModule) {
+    initModule[initMethods]();
+  }
 
-  initModule.createInitDirectories();
-  initModule.createDescriptionFile();
-  initModule.createUCfiles();
-  initModule.createXSLFiles();
-  console.log("Project directory has been initialized!!!")
+  console.log("Project directory has been initialized!!!");
 
 }
 
@@ -41,6 +43,37 @@ function removeProject() {
     console.log("Project directory has been deleted!!!")
   });
 }
+
+
+//compile files in the compileFiles array in the compileConfig.json file
+function compileFiles() {
+
+  var compile_files = helper.getCompileFiles();
+  //iterate of all compile files and compile appropriately
+  compile_files.forEach(function(file) {
+    var $ = cheerioParse(file);
+    var $ek_assets = $('[ek-asset]');
+    var $ek_types = $('[ek-type]');
+
+      //compile all ek-assets//
+    $ek_assets.each(function(ind) {
+      var $this = $(this);
+      compilerModule.compile['asset']($this);
+    });
+
+
+    //compile all ek-types//
+    $ek_types.each(function(ind) {
+      var $this = $(this);
+      var ektron_type = $this.attr('ek-type');
+      compilerModule.compile['type'][ektron_type]($this, $);
+    });
+
+
+  });
+
+}
+
 
 
 
