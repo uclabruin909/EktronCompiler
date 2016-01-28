@@ -47,7 +47,7 @@ function createUCfiles() {
   /*1. compile complete HTML for each UC file using the render module.
     Render method must pass object {projectName, fileName}*/
   layoutFiles.forEach(function(file) {
-    var filePath = basePath + '/' + file['name'] + '.aspx';
+    var filePath = basePath + '/' + file['name'] + '.ascx';
     var bodyObj = {
       fileName: file['name'],
       projectName: projectName,
