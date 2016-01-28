@@ -20,7 +20,7 @@ var compileMethods = {
       globalfooter2 : compileGlobalFooter2,
       headerlogo : compileHeaderLogo,
       globalheader1 : compileGlobalHeader1,
-      globalheader1 : compileGlobalHeader2,
+      globalheader2 : compileGlobalHeader2,
       topnav : compileTopNav,
       disclaimer : compileDisclaimer,
     },
