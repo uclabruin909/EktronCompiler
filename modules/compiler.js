@@ -274,7 +274,8 @@ function compileHeaderLogo($el, $cheerio) {
     "visible" : "false",
     "id" : "SiteSmallLogo_1",
     "runat" : "server",
-  });
+  })
+  .removeAttr('ek-type');
 
 }
 
