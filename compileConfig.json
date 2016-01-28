@@ -7,21 +7,21 @@
   "initDirectories" : ["Layouts", "UserControls", "xslt", "Content"],
   "project" : {
     "UserControls" : {
-      "files" : [{"name": "Smarsh_Head", "fileType": ".ascx", "srcFile": "./index.html"}, {"name": "Smarsh_Header", "fileType": ".ascx", "srcFile": "./index.html"}, {"name": "Smarsh_Footer", "fileType": ".ascx", "srcFile": "./index.html"}]
+      "files" : [{"name": "Smarsh_Head", "fileType": ".ascx", "fileOrigin": "UserControl", "srcFile": "./index.html"}, {"name": "Smarsh_Header", "fileType": ".ascx", "fileOrigin": "UserControl", "srcFile": "./index.html"}, {"name": "Smarsh_Footer", "fileType": ".ascx", "fileOrigin": "UserControl", "srcFile": "./index.html"}]
     },
     "Layouts" : {
       "files" : [
-        {"name": "Hero-01", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "Full", "fileType": ".aspx", "srcFile": "./our-team.html"},
-        {"name": "100-100-100", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "25-25-25-25", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "25-50-25", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "50-50", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "25-75", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "33-33-33", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "75-25", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "Nav-Left-100-100-100", "fileType": ".aspx", "srcFile": "./index.html"},
-        {"name": "Nav-Right-100-100-100", "fileType": ".aspx", "srcFile": "./index.html"}]
+        {"name": "Hero-01", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "Full", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "100-100-100", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "25-25-25-25", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "25-50-25", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "50-50", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "25-75", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "33-33-33", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "75-25", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "Nav-Left-100-100-100", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"},
+        {"name": "Nav-Right-100-100-100", "fileType": ".aspx", "fileOrigin": "Layout", "srcFile": "./index.html"}]
     },
     "xslt" : {
       "files" : ["main_menu.xsl", "single_level_menu.xsl"]
