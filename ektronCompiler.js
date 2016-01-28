@@ -14,14 +14,32 @@ var compilerModule = require('./modules/compiler.js');
 var userAction = process.argv[2];
 
 
-
 var ektronMethods = {
   init : initialize,
   remove : removeProject,
-  compile : compileProject,
+  compile : compile,
+  compileAll : compileProject,
   compileFiles : compileFiles,
 }
 
+
+
+
+function compile(fileName) {
+  //determine if Layout file or UserControl file
+  var fileOrigin = helper.getFileObj(fileName)['fileOrigin'];
+
+  switch (fileOrigin) {
+
+    case 'UserControl' :
+      compileUserControl(fileName);
+      break;
+
+    case 'Layout' :
+      compileLayout(fileName);
+  }
+
+};
 
 
 function initialize() {
@@ -86,22 +104,10 @@ function compileProject() {
   //compile UserControl files first
   userControlFiles.forEach(function(ucFile) {
 
-    var uc_file_name = ucFile['name'];
 
-    switch (uc_file_name) {
+    var uc_file_name = ucFile['name'];//eg (smarsh_Header, Smarsh_Footer, Smarsh_Head)
 
-      case 'Smarsh_Head' :
-        compileHead();
-        break;
-
-      case 'Smarsh_Header' :
-        compileHeader();
-        break;
-
-      case 'Smarsh_Footer' :
-        compileFooter();
-        break;
-    }
+    compileUserControl(uc_file_name);
 
   });
 
@@ -114,6 +120,29 @@ function compileProject() {
   });
 
 }
+
+//eg (smarsh_Header, Smarsh_Footer, Smarsh_Head)
+function compileUserControl(userControlName) {
+
+  var uc_file_name = userControlName;
+
+  switch (uc_file_name) {
+
+    case 'Smarsh_Head' :
+      compileHead();
+      break;
+
+    case 'Smarsh_Header' :
+      compileHeader();
+      break;
+
+    case 'Smarsh_Footer' :
+      compileFooter();
+      break;
+  }
+
+}
+
 
 
 
@@ -328,4 +357,4 @@ function decodeHTML(htmlString) {
 
 
 
-ektronMethods[userAction]();
+ektronMethods[userAction](process.argv[3]);
