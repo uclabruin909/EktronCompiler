@@ -24,6 +24,7 @@ var compileMethods = {
       globalheader2 : compileGlobalHeader2,
       topnav : compileTopNav,
       disclaimer : compileDisclaimer,
+      relatedarticles : compileRelatedArticles,
     },
 
     source : {
@@ -38,6 +39,23 @@ var compileMethods = {
 
 
 /*COMPILE METHODS START*/
+
+function  compileRelatedArticles($el, $cheerio) {
+
+  var $ = $cheerio;
+
+  var $related_articles_section = $el;
+  var compiled_related_articles_section = templatesModule.render('relatedarticles');
+
+
+  //insert $ektron_wrap before the $content_block,
+  //insert text value of compiled_content_block into the ektron wrap
+  //remove original $content_block element
+  var $ektron_wrap = $('<ektron>').text(compiled_related_articles_section + '\n');
+  $ektron_wrap.insertBefore($related_articles_section);
+  $related_articles_section.remove();
+
+}
 
 
 
