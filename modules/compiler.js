@@ -19,6 +19,7 @@ var compileMethods = {
       globalfooter1 : compileGlobalFooter1,
       globalfooter2 : compileGlobalFooter2,
       headerlogo : compileHeaderLogo,
+      footerlogo: compileFooterLogo,
       globalheader1 : compileGlobalHeader1,
       globalheader2 : compileGlobalHeader2,
       topnav : compileTopNav,
@@ -273,6 +274,18 @@ function compileHeaderLogo($el, $cheerio) {
   $el.attr({
     "visible" : "false",
     "id" : "SiteSmallLogo_1",
+    "runat" : "server",
+  })
+  .removeAttr('ek-type');
+
+}
+
+// add attributes {visible : "false", "id" : "SiteFooterLogo_1", "runat" : "server"}
+function compileFooterLogo($el, $cheerio) {
+
+  $el.attr({
+    "visible" : "false",
+    "id" : "SiteFooterLogo_1",
     "runat" : "server",
   })
   .removeAttr('ek-type');
